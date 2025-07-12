@@ -1,6 +1,5 @@
 from logzero import logger
 from SmartApi.smartConnect import SmartConnect
-from SmartApi.smartWebSocketV2 import SmartWebSocketV2
 import pyotp
 import time
 from datetime import datetime, timedelta
