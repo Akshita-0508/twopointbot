@@ -75,7 +75,7 @@ def resume_trailing(data):
   quantity = data["quantity"]
 
   logger.info("🚀 Resuming Trailing SL...")
-  time.sleep(2.5)
+  time.sleep(1.5)
 
   try:
     orders = smartApi.orderBook()
@@ -228,7 +228,7 @@ def execute_strategy(hour, minute):
       if ltp != open_price:
         break
       logger.info(f"Waiting for breakout... LTP: ₹{ltp}")
-      time.sleep(1)
+      time.sleep(0.5)
 
     IS_BUY = ltp < open_price
     transaction_type = "BUY" if IS_BUY else "SELL"
