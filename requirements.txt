@@ -1,5 +1,6 @@
 logzero
-SmartApi
 pyotp
 pytz
 flask
+websocket-client
+git+https://github.com/angel-one/smartapi-python.git
