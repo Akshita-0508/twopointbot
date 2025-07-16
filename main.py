@@ -247,34 +247,23 @@ def execute_strategy(hour, minute):
 
     ltp = float(
         smartApi.ltpData("NSE", tradingsymbol, symboltoken)["data"]["ltp"])
-    diff = abs(ltp - entry_price)
-    if (IS_BUY
-        and ltp >= entry_price - 0.05) or (not IS_BUY
-                                           and ltp <= entry_price + 0.05):
-      ordertype = "MARKET"
-    else:
-      ordertype = "STOPLOSS_LIMIT"
 
     entry_orderparams = {
-        "variety": "NORMAL" if ordertype == "MARKET" else "STOPLOSS",
+        "variety": "STOPLOSS",
         "tradingsymbol": tradingsymbol,
         "symboltoken": symboltoken,
         "transactiontype": transaction_type,
         "exchange": "NSE",
-        "ordertype": ordertype,
+        "ordertype": "STOPLOSS_MARKET",
         "producttype": "INTRADAY",
         "duration": "DAY",
+        "triggerprice": entry_price,
         "quantity": quantity
     }
-    if ordertype != "MARKET":
-      entry_orderparams.update({
-          "price": entry_price,
-          "triggerprice": entry_price
-      })
 
     entry_orderid = smartApi.placeOrder(entry_orderparams)
     logger.info(
-        f"🛒 Entry Order Placed → Type: {ordertype} | ID: {entry_orderid}")
+        f"🛒 Entry Order Placed →  ID: {entry_orderid}")
 
     for _ in range(780):
       if is_order_executed(entry_orderid):
